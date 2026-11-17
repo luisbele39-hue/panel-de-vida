@@ -353,7 +353,44 @@ td.today .cell:not(.on){border-color:var(--accent)}
 .ach.got .ico{animation:floaty 3.5s ease-in-out infinite}
 .nomotion *,.nomotion *::before,.nomotion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition:none!important}
 
+/* v3: vida, tienda, captura rápida, enfoque flotante, bienvenida */
+.app{padding-bottom:120px}
+a.lv{text-decoration:none;color:inherit;border-radius:14px;transition:transform .2s}
+a.lv:hover{transform:translateY(-2px)}
+.hpr{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.hpr .bar{flex:1;height:6px}
+.bar.hp i{background:var(--good)} .bar.hp.low i{background:var(--bad)}
+.btn:disabled{opacity:.45;cursor:default;transform:none;animation:none}
+.modal{position:fixed;inset:0;z-index:75;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;overflow-y:auto;animation:fade .3s both}
+.modal .mc{width:min(720px,100%);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px;animation:rise .45s both;box-shadow:0 24px 60px var(--shadow)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.steps div{background:var(--surface2);border-radius:12px;padding:12px;font-size:13px}
+.steps b{display:block;font-family:var(--display);color:var(--accent);font-size:20px}
+.tpls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tpl{text-align:left;background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:14px;transition:transform .2s,border-color .2s}
+.tpl:hover{transform:translateY(-3px);border-color:var(--accent)}
+.tpl b{font-family:var(--display);font-size:17px;display:block}
+.tpl small{color:var(--muted);font-size:13px}
+.fab{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;width:58px;height:58px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);font-size:32px;line-height:1;box-shadow:0 10px 28px color-mix(in srgb,var(--accent) 45%,transparent);transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.fab:hover{transform:scale(1.08)}
+.fab.open{transform:rotate(45deg)}
+.fabm{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.fabm .btn{animation:rise .25s both;box-shadow:0 8px 20px var(--shadow);padding:10px 16px;font-size:14px}
+.fabm .btn:nth-child(2){animation-delay:.04s}.fabm .btn:nth-child(3){animation-delay:.08s}
+.sheet{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:31;width:min(340px,calc(100vw - 36px));background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px var(--shadow);animation:rise .3s both}
+.fwp{position:fixed;left:max(18px,env(safe-area-inset-left,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30}
+.fpill{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:12px 16px;font-weight:600;box-shadow:0 8px 22px var(--shadow)}
+.fpill.run{border-color:var(--accent);animation:glow 2s ease-in-out infinite}
+.fcard{width:min(300px,calc(100vw - 36px));background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 20px 50px var(--shadow);animation:rise .3s both;text-align:center}
+.fcard .fring{width:170px}
+.fcard .ftime b{font-size:36px}
+.free{font-family:var(--display);font-size:34px;font-weight:700;line-height:1.1}
+.rw{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+.rw .ds{flex:1;min-width:0;overflow-wrap:anywhere}
+.rw .ds small{display:block;color:var(--muted);font-size:12px}
+
 @media (max-width:820px){
+  .steps,.tpls{grid-template-columns:minmax(0,1fr)}
   .gear span{display:none}
   .gear{padding:9px}
   :root{--cell:30px}
@@ -380,19 +417,19 @@ td.today .cell:not(.on){border-color:var(--accent)}
       <h1 id="greet">Panel de Vida</h1>
       <div class="status" id="status" role="status"></div>
     </div>
-    <div class="lv">
+    <a class="lv" href="#logros" aria-label="Ver tu nivel y tus logros">
       <div class="lvbadge" id="lvBadge"><span>Nivel</span><b class="num" id="lvNum">1</b></div>
       <div class="lvinfo">
         <div class="lvtop"><b id="lvTitle">Novato</b><span class="num"><span id="xpNum">0</span> / <span id="xpNext">100</span> XP</span></div>
         <div class="bar"><i id="xpBar"></i></div>
         <div class="lvsub"><span class="num" id="xpToday"></span><span class="num" id="streakTxt"></span></div>
+        <div class="hpr"><span class="label">Vida</span><div class="bar hp"><i id="hpBar"></i></div><span class="num" id="hpTxt"></span><span class="num" id="shTxt"></span></div>
       </div>
-    </div>
+    </a>
   </header>
   <div class="tabsrow">
     <nav class="tabs" id="tabs" aria-label="Secciones">
-      <a href="#inicio">Inicio</a><a href="#habitos">Hábitos</a><a href="#tareas">Tareas</a><a href="#metas">Metas</a>
-      <a href="#finanzas">Finanzas</a><a href="#cuerpo">Cuerpo</a><a href="#enfoque">Enfoque</a><a href="#logros">Logros</a>
+      <a href="#inicio">Mi día</a><a href="#plan">Plan</a><a href="#finanzas">Finanzas</a><a href="#cuerpo">Cuerpo</a><a href="#tienda">Tienda</a>
     </nav>
     <button class="gear" id="gearBtn" data-act="openset" aria-label="Abrir ajustes"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="3"/><circle cx="8" cy="17" r="3"/></svg><span>Ajustes</span></button>
   </div>
@@ -414,6 +451,9 @@ td.today .cell:not(.on){border-color:var(--accent)}
   </form>
 </div>
 <div id="set" hidden></div>
+<div id="onb" hidden></div>
+<div id="fw"></div>
+<div id="qc"></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -432,7 +472,13 @@ const WD=['D','L','M','X','J','V','S'];
 const WHEN=[['m','Mañana'],['t','Tarde'],['n','Noche']];
 const NCOL=8, COLORS=['#ef4444','#8b5cf6','#22c55e','#ec4899','#f97316','#06b6d4','#eab308','#3b82f6'];
 const CATS=[['Vivienda',0],['Comida',2],['Transporte',5],['Salud',1],['Ocio',3],['Otros',6]];
-const TABS=['inicio','habitos','tareas','metas','finanzas','cuerpo','enfoque','logros'];
+const TABS=['inicio','plan','finanzas','cuerpo','tienda','logros'], ALIAS={habitos:'plan',tareas:'plan',metas:'plan',enfoque:'inicio'};
+let planSub='habitos', fabOpen=false, qcMode='', fwH='', qcH='', checked=false;
+const TPL={
+  estudiante:{name:'Estudiante',desc:'Estudio diario, lectura y buen descanso',habits:[['Estudiar 1 hora','t',40],['Repasar apuntes','n',20],['Leer 10 páginas','m',20],['Sin móvil mientras estudio','t',30],['Dormir 8 horas','n',30]],goals:[['Horas de estudio este mes',40,'h']],tasks:['Organizar el horario de la semana']},
+  fitness:{name:'Fitness',desc:'Entrenar, comer bien y moverte cada día',habits:[['Entrenar','m',40],['Beber 2 L de agua','t',20],['Proteína en cada comida','t',20],['Caminar 8000 pasos','t',30],['Dormir 8 horas','n',30]],goals:[['Entrenamientos este mes',16,'sesiones']],tasks:['Crear mi primera rutina en Cuerpo']},
+  ahorro:{name:'Ahorro',desc:'Controlar gastos y guardar cada mes',habits:[['Registrar mis gastos','n',20],['No comprar por impulso','t',30],['Revisar mi presupuesto','m',20],['Cocinar en casa','t',30]],goals:[['Fondo de emergencia',1000,'$']],tasks:['Poner mi meta de ahorro mensual en Finanzas']},
+  productividad:{name:'Productividad',desc:'Enfoque, prioridades y días bien cerrados',habits:[['Planificar el día','m',20],['Trabajo profundo 2 h','m',40],['Bandeja de entrada a cero','t',20],['Sin redes hasta mediodía','m',30],['Revisar cómo fue el día','n',20]],goals:[['Sesiones de enfoque',30,'sesiones']],tasks:['Elegir las 3 tareas clave de hoy']}};
 const DEF_HABITS=[
   {id:'h1',name:'Entrenar 20 min',color:0,when:'m',xp:30},
   {id:'h2',name:'Leer 10 páginas',color:1,when:'m',xp:20},
@@ -494,11 +540,13 @@ function norm(key,d){
     hs.forEach(h=>{h.xp=+h.xp||20; if(!'mtn'.includes(h.when||'x'))h.when='m'; h.color=(+h.color||0)%NCOL;});
     const u=obj(d.ui);
     return {habits:hs,cur:d.cur||'$',name:d.name||'',limit:+d.limit||0,kcal:+d.kcal||2000,
+      onb:d.onb===true||(d.onb===undefined&&Array.isArray(d.habits)),save:+d.save||0,rewards:arr(d.rewards),redeemed:arr(d.redeemed),
       ui:{accent:ACCENTS[u.accent]?u.accent:'rojo',theme:['auto','dark','light'].includes(u.theme)?u.theme:'auto',font:FONTS[u.font]?u.font:'bricolage',size:['s','m','l'].includes(u.size)?u.size:'m',motion:u.motion!==false,sound:u.sound!==false}};
   }
   if(key==='stats'){
     const c=obj(d.c), dy=obj(d.day);
     return {xp:+d.xp||0,best:+d.best||0,perfect:obj(d.perfect),ach:obj(d.ach),
+      hp:d.hp==null?100:Math.max(0,Math.min(100,+d.hp||0)),hpDay:d.hpDay||'',spent:+d.spent||0,shields:+d.shields||0,shield:obj(d.shield),
       c:{habits:+c.habits||0,tasks:+c.tasks||0,focus:+c.focus||0,sessions:+c.sessions||0,workouts:+c.workouts||0,goals:+c.goals||0,tx:+c.tx||0},
       day:{d:dy.d||'',xp:+dy.xp||0,focus:+dy.focus||0}};
   }
@@ -571,6 +619,7 @@ function watch(key){
     if(loaded[key]&&JSON.stringify(n)===JSON.stringify(docs[key])){renderStatus();return;}
     docs[key]=n; loaded[key]=true;
     if(F.pending&&coreReady()){const m=F.pending;F.pending=0;awardFocus(m);}
+    if(!checked&&coreReady()){checked=true;dailyCheck();}
     render();
   },()=>{clearTimeout(t); note='Se perdió el acceso a tus datos. Los cambios no se guardarán.'; loaded[key]=false; render();});
 }
@@ -617,7 +666,7 @@ function dayStreak(){
   const dt=new Date(); let n=0;
   const any=x=>{const mo=docs[mkey(x.getFullYear(),x.getMonth()+1)];const a=mo&&mo.checks[x.getDate()];return !!a&&a.length>0};
   if(!any(dt)) dt.setDate(dt.getDate()-1);
-  while(any(dt)){n++;dt.setDate(dt.getDate()-1);}
+  while(any(dt)||S().shield[iso(dt)]){ if(any(dt)) n++; dt.setDate(dt.getDate()-1); }
   return n;
 }
 function lastDay(){const t=today();return (view.y===t.y&&view.m===t.m)?t.d:daysIn(view.y,view.m)}
@@ -667,6 +716,69 @@ function checkAch(){
 }
 function done(){ checkAch(); render(); }
 
+/* ---------- vida, escudos, tienda, dinero del día ---------- */
+function applyHP(d){
+  if(!d) return;
+  const s=S(); s.hp=Math.max(0,Math.min(100,s.hp+d));
+  if(s.hp<=0){ s.xp=Math.max(0,s.xp-100); s.hp=50; toast('Te quedaste sin vida','Pierdes 100 XP y vuelves con media vida. Cumple hábitos para recuperarla.','flame'); }
+  save('stats');
+}
+const avail=()=>Math.max(0,S().xp-S().spent);
+function dailyCheck(){
+  const s=S(), t=todayISO();
+  if(s.hpDay===t) return;
+  if(!s.hpDay){ s.hpDay=t; save('stats'); return; }
+  const end=fromISO(t), min=fromISO(t); min.setDate(min.getDate()-7);
+  let d=fromISO(s.hpDay), lost=0, used=0; if(d<min) d=min;
+  while(d<end){
+    const y=d.getFullYear(), m=d.getMonth()+1, dd=d.getDate(), hs=C().habits;
+    if(docs[mkey(y,m)]&&hs.length){
+      const doneN=hs.filter(h=>isDone(y,m,dd,h.id)).length;
+      if(doneN===0&&s.shields>0){ s.shields--; s.shield[iso(d)]=1; used++; }
+      else lost+=Math.min(30,(hs.length-doneN)*4);
+    }
+    d.setDate(d.getDate()+1);
+  }
+  const late=D('tasks').items.filter(x=>!x.done&&x.due&&x.due<t).length; lost+=Math.min(20,late*5);
+  s.hpDay=t; save('stats');
+  if(used) toast('Escudo de racha usado','Te cubrió '+used+(used===1?' día':' días')+' sin hábitos. Tu racha sigue viva.','star');
+  if(lost){ toast('Perdiste '+Math.min(lost,100)+' de vida','Por hábitos sin cumplir'+(late?' y '+late+(late===1?' tarea vencida':' tareas vencidas'):'')+'.','flame'); applyHP(-lost); }
+}
+function freeToday(){
+  const t=today(), ft=monthTotals(curKey()), c=C();
+  const base=ft.inc>0?ft.inc-c.save:(c.limit>0?c.limit:null);
+  if(base===null) return null;
+  const spentToday=ft.mo.tx.filter(x=>x.type!=='in'&&x.d===t.d).reduce((a,x)=>a+x.amt,0);
+  const left=daysIn(t.y,t.m)-t.d+1;
+  return Math.round(((base-(ft.out-spentToday))/left-spentToday)*100)/100;
+}
+function freeBox(){
+  const f=freeToday();
+  return '<div class="note" style="margin-bottom:16px"><div class="label">Gasto libre de hoy</div>'+(f===null?'<div class="hint">Registra tus ingresos del mes o pon un límite de gasto para calcularlo.</div>':'<div class="free num '+(f<0?'out':'in')+'">'+esc(money(f))+'</div><div class="hint">'+(f<0?'Hoy ya te pasaste. Mañana se recalcula con lo que quede del mes.':'Lo que puedes gastar hoy sin tocar tu ahorro del mes.')+'</div>')+'</div>';
+}
+function addTx(desc,amt,type,cat,d,key){
+  if(!ok(key)) return false;
+  D(key).tx.push({id:uid(),d,desc,amt:Math.round(amt*100)/100,type,cat:type==='in'?'':cat});
+  S().c.tx++; save(key); addXP(5); return true;
+}
+function logWeight(kg){
+  if(!ok()) return false;
+  const b=D('body'), d=todayISO(), v=Math.round(kg*10)/10;
+  b.weights=b.weights.filter(w=>w.date!==d); b.weights.push({date:d,kg:v});
+  if(b.weights.length>730) b.weights=b.weights.slice(-730);
+  save('body'); toast('Peso registrado',v+' kg','dumbbell'); return true;
+}
+function applyTemplate(k){
+  const c=C(), T=TPL[k];
+  if(T){
+    c.habits=T.habits.map((h,i)=>({id:'h'+uid()+i,name:h[0],color:i%NCOL,when:h[1],xp:h[2]}));
+    const gs=D('goals'); T.goals.forEach((g,i)=>gs.items.push({id:uid()+i,title:g[0],target:g[1],cur:0,unit:g[2]==='$'?c.cur:g[2],deadline:'',start:todayISO(),arch:false,done:false}));
+    save('goals'); T.tasks.forEach(x=>addTask(x,todayISO(),''));
+  }
+  c.onb=true; save('cfg');
+  toast('Todo listo','Marca tu primer hábito para ganar XP.','star'); render(true);
+}
+
 function toggleHabit(y,m,d,hid){
   const key=mkey(y,m); if(!ok(key)) return;
   const h=C().habits.find(x=>x.id===hid); if(!h) return;
@@ -678,6 +790,7 @@ function toggleHabit(y,m,d,hid){
   const dk=y+'-'+pad(m)+'-'+pad(d), was=!!s.perfect[dk], now=dayPct(y,m,d)===1;
   if(now&&!was){s.perfect[dk]=1;xp+=50;toast('Día perfecto','Todos tus hábitos cumplidos · +50 XP','target');burst(60);}
   if(!now&&was){delete s.perfect[dk];xp-=50;}
+  applyHP((on?2:-2)+(now&&!was?10:0));
   save(key); addXP(xp);
   popSel='[data-h="'+hid+'"][data-d="'+d+'"],[data-h="'+hid+'"][data-t]';
   done();
@@ -686,7 +799,7 @@ function toggleTask(id){
   if(!ok()) return;
   const x=D('tasks').items.find(t=>t.id===id); if(!x) return;
   x.done=!x.done; x.doneAt=x.done?todayISO():'';
-  const s=S(); s.c.tasks=Math.max(0,s.c.tasks+(x.done?1:-1));
+  const s=S(); s.c.tasks=Math.max(0,s.c.tasks+(x.done?1:-1)); if(x.done) applyHP(3);
   save('tasks'); addXP(x.done?(x.xp||15):-(x.xp||15));
   popSel='.task[data-id="'+id+'"]'; done();
 }
@@ -757,15 +870,22 @@ function beep(f1,f2){
 }
 
 /* ---------- focus timer ---------- */
-const F={dur:25,left:25*60000,end:0,running:false,pending:0};
+const F={dur:25,left:25*60000,end:0,running:false,pending:0,open:false,link:''};
 function fStore(){try{ if(F.running) localStorage.setItem('pv:focus',JSON.stringify({dur:F.dur,end:F.end})); else localStorage.removeItem('pv:focus'); }catch(e){}}
 function fStart(){ if(F.running){F.left=Math.max(0,F.end-Date.now());F.running=false;} else {if(F.left<=0)F.left=F.dur*60000;F.end=Date.now()+F.left;F.running=true;} fStore(); fPaint(); }
 function fReset(){ F.running=false; F.left=F.dur*60000; fStore(); fPaint(); }
 function fSet(m){ if(F.running) return; F.dur=m; F.left=m*60000; fPaint(); render(); }
 function awardFocus(m){
   const s=S(); s.c.focus+=m; s.c.sessions++; dayStats(true).focus+=m; save('stats');
-  toast('Sesión completada',m+' min de enfoque · +'+m+' XP','clock'); beep(880,1175); burst(70);
-  addXP(m,{x:innerWidth/2,y:innerHeight/2}); done();
+  let extra='', goal=null, add=0;
+  if(F.link){
+    const k=F.link.slice(0,1), id=F.link.slice(2);
+    if(k==='t'){ const x=D('tasks').items.find(v=>v.id===id); if(x){x.focus=(x.focus||0)+m; save('tasks'); extra=' · sumado a «'+x.title+'»';} }
+    else { goal=D('goals').items.find(v=>v.id===id); if(goal){const u=(goal.unit||'').toLowerCase(); add=/^min/.test(u)?m:/^h/.test(u)?Math.round(m/60*100)/100:1; extra=' · +'+add+' en «'+goal.title+'»';} }
+  }
+  toast('Sesión completada',m+' min de enfoque · +'+m+' XP'+extra,'clock'); beep(880,1175); burst(70);
+  addXP(m,{x:innerWidth/2,y:innerHeight/2});
+  if(goal) setGoal(goal,goal.cur+add); else done();
 }
 function fTick(){
   if(!F.running) return;
@@ -777,6 +897,7 @@ function fPaint(){
   const tEl=$('#ftime');
   const sec=Math.max(0,Math.ceil(F.left/1000)), txt=pad(Math.floor(sec/60))+':'+pad(sec%60);
   document.title=F.running?txt+' · Panel de Vida':'Panel de Vida';
+  const pl=$('#fpill'); if(pl){ pl.textContent=(F.running||F.left<F.dur*60000)?txt:'Enfoque'; $('#fpillb').classList.toggle('run',F.running); }
   if(!tEl) return;
   tEl.textContent=txt;
   const Cc=2*Math.PI*96, p=1-F.left/(F.dur*60000);
@@ -803,7 +924,7 @@ function habitRows(){
 }
 function taskRow(x){
   const late=!x.done&&x.due&&x.due<todayISO();
-  return '<div class="task'+(x.done?' on':'')+'" data-id="'+esc(x.id)+'"><button class="chk" data-act="task" data-id="'+esc(x.id)+'" aria-pressed="'+!!x.done+'" aria-label="Completar '+esc(x.title)+'"></button><div class="tt"><span class="nm">'+esc(x.title)+'</span><small>'+(x.proj?'<span class="chip" style="--c:var(--h'+(hash(x.proj)%NCOL)+')">'+esc(x.proj)+'</span>':'')+'<span class="'+(late?'out':'')+'">'+esc(dueLabel(x.due))+'</span></small></div><span class="xp num">+'+(x.xp||15)+' XP</span><button class="x" data-act="deltask" data-id="'+esc(x.id)+'" aria-label="Borrar '+esc(x.title)+'">×</button></div>';
+  return '<div class="task'+(x.done?' on':'')+'" data-id="'+esc(x.id)+'"><button class="chk" data-act="task" data-id="'+esc(x.id)+'" aria-pressed="'+!!x.done+'" aria-label="Completar '+esc(x.title)+'"></button><div class="tt"><span class="nm">'+esc(x.title)+'</span><small>'+(x.proj?'<span class="chip" style="--c:var(--h'+(hash(x.proj)%NCOL)+')">'+esc(x.proj)+'</span>':'')+'<span class="'+(late?'out':'')+'">'+esc(dueLabel(x.due))+'</span>'+(x.focus?'<span class="num"> · '+x.focus+' min de enfoque</span>':'')+'</small></div><span class="xp num">+'+(x.xp||15)+' XP</span><button class="x" data-act="deltask" data-id="'+esc(x.id)+'" aria-label="Borrar '+esc(x.title)+'">×</button></div>';
 }
 function tasksFor(f){
   const t=todayISO(), wk=new Date(); wk.setDate(wk.getDate()+7); const w=iso(wk);
@@ -923,6 +1044,7 @@ function vFinance(){
     +'<label class="hint" style="display:flex;align-items:center;gap:6px">Moneda<select id="cur" data-m aria-label="Moneda" style="width:auto">'+['$','€','S/','Bs','R$','£','Q','₡'].map(c=>'<option'+(C().cur===c?' selected':'')+'>'+c+'</option>').join('')+'</select></label></div>'
     +'<div class="cols"><div><div class="totals"><div><span class="label">Ingresos</span><b class="num in">'+esc(money(ft.inc))+'</b></div><div><span class="label">Gastos</span><b class="num out">'+esc(money(ft.out))+'</b></div><div><span class="label">Balance</span><b class="num '+(bal<0?'out':'')+'">'+esc(money(bal))+'</b></div></div>'
     +'<div class="label" style="margin-bottom:8px">Límite de gasto mensual</div><div class="lim"><input type="text" inputmode="decimal" id="limit" data-m value="'+(lim||'')+'" placeholder="Sin límite" aria-label="Límite de gasto mensual">'+(lim?'<div class="bar big'+(ft.out>lim?' over':'')+'"><i style="width:'+Math.min(100,Math.round(ft.out/lim*100))+'%"></i></div><span class="num hint">'+Math.round(ft.out/lim*100)+'%</span>':'<span class="hint">Pon un tope y verás cuánto llevas gastado.</span>')+'</div>'
+    +'<div class="label" style="margin-bottom:8px">Meta de ahorro mensual</div><div class="lim"><input type="text" inputmode="decimal" id="saveGoal" data-m value="'+(C().save||'')+'" placeholder="0" aria-label="Meta de ahorro mensual"><span class="hint">Lo que quieres guardar cada mes.</span></div>'+freeBox()
     +'<div class="label" style="margin-bottom:10px">Gastos por categoría</div><div class="donut"><svg viewBox="0 0 150 150" role="img" aria-label="Gastos por categoría"><circle class="hole" cx="75" cy="75" r="'+r+'" stroke-width="20"/>'+seg+'<text class="s" x="75" y="68" text-anchor="middle">GASTOS</text><text class="num" x="75" y="88" text-anchor="middle">'+esc(new Intl.NumberFormat('es',{maximumFractionDigits:0}).format(ft.out))+'</text></svg><div class="legend">'+(leg||'<div class="hint">Cuando registres gastos verás aquí en qué se va tu dinero.</div>')+'</div></div></div>'
     +'<div><form class="form" id="txForm" autocomplete="off"><select id="txType" aria-label="Tipo"><option value="out">Gasto</option><option value="in">Ingreso</option></select><input type="text" id="txDesc" class="s3" placeholder="Descripción" maxlength="60" aria-label="Descripción" required><input type="text" id="txAmt" inputmode="decimal" placeholder="Monto" aria-label="Monto" required><select id="txCat" class="s2" aria-label="Categoría">'+CATS.map(c=>'<option>'+c[0]+'</option>').join('')+'</select><input type="number" id="txDay" min="1" max="'+N+'" value="'+Math.min(lastDay(),N)+'" aria-label="Día del mes"><button class="btn primary s4" type="submit">Añadir movimiento</button><div class="hint s4" id="txErr" role="alert"></div></form>'
     +'<div class="stag">'+(list.length?list.map(x=>'<div class="tx"><span class="d num">'+x.d+' '+MONTHS[view.m-1].slice(0,3).toLowerCase()+'</span><span class="ds">'+esc(x.desc)+'<small>'+esc(x.type==='in'?'Ingreso':x.cat)+'</small></span><span class="a num '+(x.type==='in'?'in':'out')+'">'+(x.type==='in'?'+ ':'− ')+esc(money(x.amt))+'</span><button class="x" data-act="deltx" data-id="'+esc(x.id)+'" aria-label="Borrar '+esc(x.desc)+'">×</button></div>').join(''):'<div class="empty">Sin movimientos en '+MONTHS[view.m-1].toLowerCase()+'. Registra tu primer ingreso o gasto arriba.</div>')+'</div></div></div></section>';
@@ -970,7 +1092,76 @@ function vAch(){
     +ACH.map(a=>{const v=Math.min(a[5](),a[6]), g=!!s.ach[a[0]];
       return '<div class="ach'+(g?' got':'')+'"><div class="top"><div class="ico">'+ic(a[3])+'</div><div><h3>'+esc(a[1])+'</h3><div class="hint">'+esc(a[2])+'</div></div></div><div class="bar"><i style="width:'+Math.round((g?1:v/a[6])*100)+'%"></i></div><div class="ft"><span class="num">'+(g?'Desbloqueado · '+shortDate(s.ach[a[0]]):v+' / '+a[6])+'</span><span class="num">+'+a[4]+' XP</span></div></div>';}).join('')+'</div></section>';
 }
-const VIEWS={inicio:vHome,habitos:vHabits,tareas:vTasks,metas:vGoals,finanzas:vFinance,cuerpo:vBody,enfoque:vFocus,logros:vAch};
+function vDay(){
+  const t=today(), hs=C().habits, ds=dayStats(false), n=hs.filter(h=>isDone(t.y,t.m,t.d,h.id)).length;
+  const p=hs.length?n/hs.length:0, Cc=2*Math.PI*17, f=freeToday(), st=dayStreak(), na=nextAch();
+  const all=tasksFor('hoy'), pend=all.filter(x=>!x.done), top=pend.slice(0,3).concat(all.filter(x=>x.done).slice(0,2)), more=pend.length-3;
+  return '<div class="tiles stag">'
+    +'<div class="tile"><span class="label">Hábitos hoy</span><b class="num" style="display:flex;align-items:center;gap:10px"><svg class="ring" viewBox="0 0 42 42" width="38" height="38" aria-hidden="true"><circle class="t" cx="21" cy="21" r="17" fill="none" stroke-width="5"/><circle class="p" cx="21" cy="21" r="17" fill="none" stroke-width="5" stroke-linecap="round" style="--c:'+Cc+'" stroke-dasharray="'+Cc+'" stroke-dashoffset="'+(Cc*(1-p))+'" transform="rotate(-90 21 21)"/></svg><span data-count="'+n+'">'+n+'</span> <small>de '+hs.length+'</small></b></div>'
+    +'<div class="tile"><span class="label">XP ganado hoy</span><b class="num">+<span data-count="'+ds.xp+'">'+ds.xp+'</span></b></div>'
+    +'<div class="tile"><span class="label">Racha actual</span><b class="num"><span data-count="'+st+'">'+st+'</span> <small>'+(st===1?'día':'días')+'</small></b></div>'
+    +'<div class="tile"><span class="label">Gasto libre hoy</span><b class="num '+(f!==null&&f<0?'out':'')+'" style="font-size:22px">'+(f===null?'—':esc(money(f)))+'</b></div></div>'
+    +'<div class="cols w"><section class="card" aria-labelledby="hM"><div class="head"><div><h2 id="hM">Hábitos de hoy</h2><div class="hint">Cada uno suma XP y recupera vida</div></div><a class="btn" href="#habitos">Ver matriz</a></div>'+habitRows()+'</section>'
+    +'<div class="stack"><section class="card" aria-labelledby="hT"><div class="head"><div><h2 id="hT">Tus 3 tareas clave</h2><div class="hint">'+(more>0?'Y '+more+' más en Planificación':'Lo más importante de hoy')+'</div></div><a class="btn" href="#tareas">Todas</a></div>'
+      +'<form class="inline" id="qTask" autocomplete="off"><input type="text" id="qTaskT" placeholder="Añadir tarea para hoy" maxlength="80" aria-label="Nueva tarea para hoy"><button class="btn primary" type="submit">Añadir</button></form>'
+      +'<div style="margin-top:8px">'+(top.length?top.map(taskRow).join(''):'<div class="empty">Nada pendiente para hoy. Añade lo que quieras cerrar antes de dormir.</div>')+'</div></section>'
+    +'<section class="card" aria-labelledby="hD"><div class="head"><div><h2 id="hD">Gasto rápido</h2><div class="hint">Anótalo en el momento · +5 XP</div></div><a class="btn" href="#finanzas">Finanzas</a></div>'
+      +'<form class="form" id="qTx" autocomplete="off" style="margin:0"><input type="text" inputmode="decimal" id="qTxA" placeholder="Monto" aria-label="Monto" required><input type="text" id="qTxD" class="s2" placeholder="¿En qué?" maxlength="60" aria-label="Descripción"><select id="qTxC" aria-label="Categoría">'+CATS.map(c=>'<option>'+c[0]+'</option>').join('')+'</select><button class="btn primary s4" type="submit">Registrar gasto</button></form></section>'
+    +(na?'<section class="card" aria-labelledby="hN"><div class="head"><div><h2 id="hN">Próximo logro</h2><div class="hint">'+esc(na.a[2])+'</div></div><span class="xp num">+'+na.a[4]+' XP</span></div><div style="display:flex;gap:12px;align-items:center"><div class="ach" style="padding:0;border:0;opacity:1;background:none"><div class="ico">'+ic(na.a[3])+'</div></div><div style="flex:1;min-width:0"><b>'+esc(na.a[1])+'</b><div class="bar" style="margin-top:6px"><i style="width:'+Math.round(na.r*100)+'%"></i></div></div><span class="num hint">'+Math.min(na.a[5](),na.a[6])+' / '+na.a[6]+'</span></div></section>':'')
+    +(sampleFn?'<section class="card" aria-labelledby="hC"><div class="head"><div><h2 id="hC">Coach</h2><div class="hint">Un consejo según tu día de hoy</div></div><button class="btn primary" data-act="coach"'+(coachBusy?' disabled':'')+'>'+(coachBusy?'Pensando…':'Pedir consejo')+'</button></div><div class="coach" id="coachOut">'+esc(coachText)+'</div></section>':'')
+    +'</div></div>';
+}
+function vPlan(){
+  const c=[['habitos','Hábitos'],['tareas','Tareas'],['metas','Metas']];
+  return '<div class="chips">'+c.map(x=>'<button class="chipb'+(planSub===x[0]?' on':'')+'" data-act="ps" data-v="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'+(planSub==='tareas'?vTasks():planSub==='metas'?vGoals():vHabits());
+}
+function vShop(){
+  const s=S(), a=avail(), rws=C().rewards, red=C().redeemed.slice(-5).reverse();
+  return '<div class="cols"><section class="card" aria-labelledby="hX"><div class="head"><div><h2 id="hX">Tu XP para gastar</h2><div class="hint">Gastar XP no te baja de nivel</div></div></div><div class="free num">'+a+' XP</div><div class="hint num">'+s.xp+' ganados en total · '+s.spent+' gastados</div></section>'
+    +'<section class="card" aria-labelledby="hE"><div class="head"><div><h2 id="hE">Escudo de racha</h2><div class="hint">Si un día no marcas ningún hábito, el escudo se gasta solo: no pierdes vida ni racha</div></div><span class="xp num">150 XP</span></div><div class="rw" style="border:0;padding:0"><div class="ds"><b class="num">'+s.shields+(s.shields===1?' escudo guardado':' escudos guardados')+'</b><small>Máximo 3</small></div><button class="btn primary" data-act="buyshield"'+(a<150||s.shields>=3?' disabled':'')+'>'+(s.shields>=3?'Tienes el máximo':a<150?'Faltan '+(150-a)+' XP':'Comprar')+'</button></div></section></div>'
+    +'<section class="card" aria-labelledby="hRw"><div class="head"><div><h2 id="hRw">Recompensas</h2><div class="hint">Premios reales que te das al canjear XP. Si les pones precio, se anotan como gasto en Finanzas</div></div></div>'
+    +'<form class="form" id="rwForm" autocomplete="off"><input type="text" id="rwN" class="s2" placeholder="Premio, por ejemplo: Pedir pizza" maxlength="50" aria-label="Premio" required><input type="text" inputmode="numeric" id="rwC" placeholder="Coste en XP" aria-label="Coste en XP" required><input type="text" inputmode="decimal" id="rwP" placeholder="Precio en '+esc(C().cur)+' (opcional)" aria-label="Precio en dinero"><button class="btn primary s4" type="submit">Añadir recompensa</button></form>'
+    +(rws.length?'<div class="stag">'+rws.map(r=>'<div class="rw"><div class="ds"><b>'+esc(r.name)+'</b><small class="num">'+r.cost+' XP'+(r.price?' · '+esc(money(r.price)):'')+'</small></div><button class="btn primary" data-act="redeem" data-id="'+esc(r.id)+'"'+(a<r.cost?' disabled':'')+'>'+(a<r.cost?'Faltan '+(r.cost-a)+' XP':'Canjear')+'</button><button class="x" data-act="rwdel" data-id="'+esc(r.id)+'" aria-label="Borrar '+esc(r.name)+'">×</button></div>').join('')+'</div>':'<div class="empty">Define tu primer premio: algo que te apetezca y cuánta XP te va a costar ganártelo.</div>')
+    +(red.length?'<div class="label" style="margin-top:14px">Últimos canjes</div>'+red.map(r=>'<div class="tx"><span class="d num">'+esc(shortDate(r.date))+'</span><span class="ds">'+esc(r.name)+'</span><span class="a num">−'+r.cost+' XP</span></div>').join(''):'')+'</section>';
+}
+function renderFW(){
+  const el=$('#fw'), ds=dayStats(false); let h;
+  if(!F.open) h='<div class="fwp"><button class="fpill" id="fpillb" data-act="fopen" aria-label="Abrir el temporizador de enfoque">'+ic('clock')+'<span class="num" id="fpill">Enfoque</span></button></div>';
+  else {
+    const Cc=2*Math.PI*96;
+    const opts='<option value="">Sin vincular</option>'+tasksFor('todas').slice(0,30).map(x=>'<option value="t:'+esc(x.id)+'"'+(F.link==='t:'+x.id?' selected':'')+'>Tarea: '+esc(x.title)+'</option>').join('')
+      +D('goals').items.filter(g=>!g.arch&&!g.done).map(g=>'<option value="g:'+esc(g.id)+'"'+(F.link==='g:'+g.id?' selected':'')+'>Meta: '+esc(g.title)+'</option>').join('');
+    h='<div class="fwp"><div class="fcard" role="region" aria-label="Temporizador de enfoque"><div class="head" style="margin:0;width:100%;align-items:center"><h3>Enfoque</h3><button class="btn" data-act="fopen">Minimizar</button></div>'
+      +'<div class="fring" id="fring"><svg viewBox="0 0 220 220" aria-hidden="true"><circle class="t" cx="110" cy="110" r="96" fill="none" stroke-width="12"/><circle class="p" id="fprog" cx="110" cy="110" r="96" fill="none" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+Cc+'" stroke-dashoffset="'+Cc+'" transform="rotate(-90 110 110)"/></svg><div class="ftime"><b class="num" id="ftime">25:00</b><span class="label" id="fstate">Listo</span></div></div>'
+      +'<div class="chips" style="justify-content:center">'+[15,25,50,90].map(m=>'<button class="chipb'+(F.dur===m?' on':'')+'" data-act="fdur" data-v="'+m+'">'+m+' min</button>').join('')+'</div>'
+      +'<label class="hint" style="width:100%;text-align:left;display:flex;flex-direction:column;gap:4px">Sumar el tiempo a<select id="fLink">'+opts+'</select></label>'
+      +'<div style="display:flex;gap:8px"><button class="btn primary" data-act="fstart" id="fbtn">Empezar</button><button class="btn" data-act="freset">Reiniciar</button></div>'
+      +'<div class="hint num">Hoy '+ds.focus+' min · 1 XP por minuto</div></div></div>';
+  }
+  if(h!==fwH){ el.innerHTML=h; fwH=h; }
+  fPaint();
+}
+function renderQC(){
+  const el=$('#qc'), op=fabOpen||!!qcMode;
+  let h='<button class="fab'+(op?' open':'')+'" data-act="fab" aria-label="Captura rápida" aria-expanded="'+op+'">+</button>';
+  if(fabOpen) h+='<div class="fabm"><button class="btn" data-act="qc" data-v="tx">Gasto</button><button class="btn" data-act="qc" data-v="task">Tarea</button><button class="btn" data-act="qc" data-v="w">Peso</button></div>';
+  if(qcMode==='tx') h+='<form class="sheet" id="qcTx" autocomplete="off"><h3>Gasto rápido</h3><input type="text" inputmode="decimal" id="qcA" placeholder="Monto" aria-label="Monto" required><input type="text" id="qcD" placeholder="¿En qué?" maxlength="60" aria-label="Descripción"><select id="qcC" aria-label="Categoría">'+CATS.map(c=>'<option>'+c[0]+'</option>').join('')+'</select><button class="btn primary" type="submit">Guardar gasto</button></form>';
+  if(qcMode==='task') h+='<form class="sheet" id="qcTask" autocomplete="off"><h3>Tarea rápida</h3><input type="text" id="qcT" placeholder="¿Qué tienes que hacer?" maxlength="80" aria-label="Tarea" required><button class="btn primary" type="submit">Añadir para hoy</button></form>';
+  if(qcMode==='w') h+='<form class="sheet" id="qcW" autocomplete="off"><h3>Peso de hoy</h3><input type="text" inputmode="decimal" id="qcK" placeholder="kg, por ejemplo 72,5" aria-label="Peso en kg" required><button class="btn primary" type="submit">Registrar</button></form>';
+  if(h!==qcH){ el.innerHTML=h; qcH=h; const f=$('.sheet input',el); if(f) f.focus(); }
+}
+function renderOnb(){
+  const el=$('#onb'), show=coreReady()&&!C().onb;
+  if(!show){ if(!el.hidden){el.hidden=true;el.innerHTML='';} return; }
+  if(!el.hidden) return;
+  el.hidden=false;
+  el.innerHTML='<div class="modal" role="dialog" aria-modal="true" aria-labelledby="onbH"><div class="mc"><div><div class="label">Bienvenida</div><h2 id="onbH" style="font-size:24px">Así funciona tu Panel de Vida</h2></div>'
+    +'<div class="steps"><div><b>1</b>Marca tus hábitos y tareas del día. Cada uno suma XP.</div><div><b>2</b>Con XP subes de nivel y canjeas recompensas en la Tienda.</div><div><b>3</b>Si dejas pasar hábitos o tareas pierdes vida. Cuida la racha.</div></div>'
+    +'<div><h3>Elige con qué empezar</h3><div class="hint">Te crea los primeros hábitos, una meta y una tarea. Podrás cambiarlo todo después.</div></div>'
+    +'<div class="tpls">'+Object.keys(TPL).map(k=>'<button class="tpl" data-act="tpl" data-v="'+k+'"><b>'+TPL[k].name+'</b><small>'+TPL[k].desc+'</small></button>').join('')+'</div>'
+    +'<button class="btn" data-act="tpl" data-v="">Seguir con los hábitos de ejemplo</button></div></div>';
+}
+const VIEWS={inicio:vDay,plan:vPlan,finanzas:vFinance,cuerpo:vBody,tienda:vShop,logros:vAch};
 
 /* ---------- render ---------- */
 function renderStatus(){
@@ -986,6 +1177,8 @@ function renderHero(){
   $('#lvNum').textContent=L; $('#lvTitle').textContent=titleOf(L); $('#xpNext').textContent=next;
   $('#xpBar').style.width=Math.round((s.xp-base)/(next-base)*100)+'%';
   $('#xpToday').textContent='+'+ds.xp+' XP hoy'; const st=dayStreak(); $('#streakTxt').textContent='Racha de '+st+(st===1?' día':' días');
+  $('#hpBar').style.width=s.hp+'%'; $('#hpBar').parentNode.classList.toggle('low',s.hp<35);
+  $('#hpTxt').textContent=s.hp+' / 100'; $('#shTxt').textContent=s.shields?'· '+s.shields+(s.shields===1?' escudo':' escudos'):'';
   if(shownLvl&&L!==shownLvl){const b=$('#lvBadge');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');}
   shownLvl=L;
   if(s.xp!==shownXP){ const from=shownXP,to=s.xp,t0=performance.now(),el=$('#xpNum'); shownXP=to;
@@ -1046,7 +1239,7 @@ function countUp(el){
 }
 let enterT=0;
 function render(fresh){
-  applyUI(); renderSettings();
+  applyUI(); renderSettings(); renderOnb(); renderFW(); renderQC();
   renderStatus(); renderHero();
   const v=$('#view'), keep=fresh?null:capture(v);
   if(fresh){ v.classList.add('enter'); clearTimeout(enterT); enterT=setTimeout(()=>v.classList.remove('enter'),1600); }
@@ -1054,13 +1247,12 @@ function render(fresh){
   v.innerHTML=VIEWS[tab]();
   if(keep) restore(keep); else $$('[data-count]',v).forEach(countUp);
   $$('#tabs a').forEach(a=>{const on=a.getAttribute('href')==='#'+tab; a.classList.toggle('on',on); if(on)a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');});
-  if(tab==='habitos'){
+  if(tab==='plan'&&planSub==='habitos'){
     renderChart();
     const t=today();
     if(!scrolled&&view.y===t.y&&view.m===t.m){const c=$('#grid thead th.today'),w=$('#gwrap'); if(c&&w.clientWidth){w.scrollLeft=Math.max(0,c.offsetLeft-w.clientWidth/2);scrolled=true;}}
   }
   if(tab==='finanzas'){const ty=$('#txType'); if(ty) $('#txCat').disabled=ty.value==='in';}
-  if(tab==='enfoque') fPaint();
   if(popSel){ try{$$(popSel,v).forEach(e=>e.classList.add('pop'));}catch(e){} popSel=''; }
 }
 
@@ -1072,15 +1264,16 @@ function setView(y,m){
   watch(mkey(y,m)); render(true);
 }
 function setTab(){
-  const h=location.hash.replace('#',''), n=TABS.includes(h)?h:'inicio';
-  if(n===tab&&$('#view').children.length) return;
+  const h=location.hash.replace('#',''), n=TABS.includes(h)?h:(ALIAS[h]||'inicio'), sub=ALIAS[h]==='plan'?h:null;
+  if(n===tab&&(!sub||sub===planSub)&&$('#view').children.length) return;
+  if(sub) planSub=sub;
   tab=n; scrolled=false; confirmKey=null; render(true);
   const a=$('#tabs a.on'); if(a&&a.scrollIntoView) a.scrollIntoView({block:'nearest',inline:'center'});
 }
 addEventListener('hashchange',setTab);
 document.addEventListener('fullscreenchange',()=>{ if(setOpen) renderSettings(); });
 addEventListener('pointerdown',e=>{lastPt={x:e.clientX,y:e.clientY};},true);
-addEventListener('resize',()=>{ if(tab==='habitos') renderChart(); });
+addEventListener('resize',()=>{ renderChart(); });
 function needConfirm(k){ if(confirmKey===k){confirmKey=null;return false;} confirmKey=k; render(); return true; }
 
 document.addEventListener('click',e=>{
@@ -1100,6 +1293,10 @@ document.addEventListener('click',e=>{
   else if(a==='next'){ if(view.y===t.y&&view.m===t.m) return; let y=view.y,m=view.m+1; if(m>12){m=1;y++;} setView(y,m); }
   else if(a==='edit'){ editing=!editing; render(); }
   else if(a==='tf'){ taskFilter=b.dataset.v; render(true); }
+  else if(a==='ps'){ planSub=b.dataset.v; scrolled=false; render(true); }
+  else if(a==='fopen'){ F.open=!F.open; renderFW(); }
+  else if(a==='fab'){ if(qcMode){qcMode='';fabOpen=false;} else fabOpen=!fabOpen; renderQC(); }
+  else if(a==='qc'){ qcMode=b.dataset.v; fabOpen=false; renderQC(); }
   else if(a==='gf'){ goalFilter=b.dataset.v; render(true); }
   else if(a==='fstart'){ fStart(); }
   else if(a==='freset'){ fReset(); }
@@ -1107,6 +1304,13 @@ document.addEventListener('click',e=>{
   else if(a==='coach'){ askCoach(); }
   else if(a==='task'){ toggleTask(id); }
   else if(!ok()) return;
+  else if(a==='tpl'){ applyTemplate(b.dataset.v); }
+  else if(a==='buyshield'){ const s=S(); if(avail()<150||s.shields>=3) return; s.spent+=150; s.shields++; save('stats'); toast('Escudo comprado','Te cubrirá el próximo día sin hábitos.','star'); render(); }
+  else if(a==='redeem'){ const r=C().rewards.find(x=>x.id===id), s=S(); if(!r||avail()<r.cost) return;
+    s.spent+=r.cost; const c=C(); c.redeemed.push({name:r.name,cost:r.cost,date:todayISO()}); if(c.redeemed.length>30) c.redeemed=c.redeemed.slice(-30); save('cfg'); save('stats');
+    if(r.price>0){ D(curKey()).tx.push({id:uid(),d:t.d,desc:'Recompensa: '+r.name,amt:r.price,type:'out',cat:'Ocio'}); s.c.tx++; save(curKey()); }
+    toast('Recompensa canjeada',r.name+' · −'+r.cost+' XP'+(r.price>0?' · anotado en Finanzas':''),'trophy'); burst(90); done(); }
+  else if(a==='rwdel'){ const c=C(); c.rewards=c.rewards.filter(x=>x.id!==id); save('cfg'); render(); }
   else if(a==='set'){ const u=C().ui, k=b.dataset.k, v=b.dataset.v; u[k]=(k==='motion'||k==='sound')?v==='1':v; save('cfg'); render(); if(k==='sound'&&u.sound) beep(660,880); }
   else if(a==='reset'){ if(needConfirm('reset')) return; docs.stats=norm('stats',null); save('stats'); toast('Progreso reiniciado','Vuelves a empezar en el nivel 1.','star'); render(); }
   else if(a==='color'){ const h=C().habits.find(x=>x.id===b.dataset.h); if(h){h.color=(h.color+1)%NCOL; save('cfg'); render();} }
@@ -1126,8 +1330,9 @@ document.addEventListener('click',e=>{
 document.addEventListener('change',e=>{
   const el=e.target, cl=el.classList;
   if(el.id==='txType'){ $('#txCat').disabled=el.value==='in'; return; }
+  if(el.id==='fLink'){ F.link=el.value; return; }
   const eid=({setName:'cfgName',setCur:'cur',setKcal:'kcalGoal'})[el.id]||el.id;
-  if(!(cl.contains('hin')||cl.contains('hwhen')||cl.contains('hxp')||cl.contains('gin')||['cur','limit','kcalGoal','cfgName'].includes(eid))) return;
+  if(!(cl.contains('hin')||cl.contains('hwhen')||cl.contains('hxp')||cl.contains('gin')||['cur','limit','saveGoal','kcalGoal','cfgName'].includes(eid))) return;
   if(!ok()){ render(); return; }
   if(cl.contains('hin')||cl.contains('hwhen')||cl.contains('hxp')){
     const h=C().habits.find(x=>x.id===el.dataset.h); if(!h) return;
@@ -1138,6 +1343,7 @@ document.addEventListener('change',e=>{
   else if(cl.contains('gin')){ const g=D('goals').items.find(x=>x.id===el.dataset.id), v=numv(el.value); if(g&&v>=0) setGoal(g,v); else render(); }
   else if(eid==='cur'){ C().cur=el.value; save('cfg'); render(); }
   else if(eid==='limit'){ const v=numv(el.value); C().limit=v>0?v:0; save('cfg'); render(); }
+  else if(eid==='saveGoal'){ const v=numv(el.value); C().save=v>0?v:0; save('cfg'); render(); }
   else if(eid==='kcalGoal'){ const v=numv(el.value); if(v>0){C().kcal=Math.round(v); save('cfg');} render(); }
   else if(eid==='cfgName'){ C().name=el.value.trim(); save('cfg'); render(); }
 });
@@ -1147,6 +1353,19 @@ document.addEventListener('submit',e=>{
   const val=id=>{const el=document.getElementById(id);return el?el.value.trim():''}, clr=(...ids)=>ids.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   const err=(id,msg)=>{const el=document.getElementById(id); if(el) el.textContent=msg;};
   if(f==='authForm'){ authDo('in'); }
+  else if(f==='qTx'||f==='qcTx'){
+    const p=f==='qTx'?'qTx':'qc', amt=numv(val(p+'A')), desc=val(p+'D')||'Gasto';
+    if(!(amt>0)){toast('Monto no válido','Escribe un número mayor que cero, por ejemplo 12,50.','coin');return;}
+    if(addTx(desc,amt,'out',val(p+'C')||'Otros',t.d,curKey())){ clr(p+'A',p+'D'); if(p==='qc') qcMode=''; toast('Gasto registrado',desc+' · '+money(amt),'coin'); done(); }
+  }
+  else if(f==='qcTask'){ const v=val('qcT'); if(!v) return; if(addTask(v,todayISO(),'')){ qcMode=''; toast('Tarea añadida',v,'check'); render(); } }
+  else if(f==='qcW'){ const kg=numv(val('qcK')); if(!(kg>20&&kg<400)){toast('Peso no válido','Escribe tu peso en kg, por ejemplo 72,5.','dumbbell');return;} if(logWeight(kg)){ qcMode=''; render(); } }
+  else if(f==='rwForm'){
+    const n=val('rwN'), c=Math.round(numv(val('rwC'))), p=numv(val('rwP'));
+    if(!n) return; if(!(c>0)){toast('Coste no válido','Pon cuánta XP cuesta, por ejemplo 500.','star');return;}
+    if(!ok()) return;
+    C().rewards.push({id:uid(),name:n,cost:c,price:p>0?Math.round(p*100)/100:0}); clr('rwN','rwC','rwP'); save('cfg'); render();
+  }
   else if(f==='addHabit'){
     const v=val('newHabit'); if(!v||!ok()) return;
     if(C().habits.length>=20){toast('Máximo 20 hábitos','Elimina alguno antes de añadir otro.','target');return;}
@@ -1216,7 +1435,7 @@ async function askCoach(){
 
 /* ---------- boot ---------- */
 async function boot(){
-  tab=TABS.includes(location.hash.replace('#',''))?location.hash.replace('#',''):'inicio';
+  { const h=location.hash.replace('#',''); tab=TABS.includes(h)?h:(ALIAS[h]||'inicio'); if(ALIAS[h]==='plan') planSub=h; }
   render(true);
   try{const f=JSON.parse(localStorage.getItem('pv:focus')); if(f&&f.end&&f.dur){F.dur=f.dur; if(f.end>Date.now()){F.end=f.end;F.left=f.end-Date.now();F.running=true;} else {F.left=f.dur*60000;F.pending=f.dur;localStorage.removeItem('pv:focus');}}}catch(e){}
   const fc=window.FIREBASE_CONFIG, fbOk=!!(window.firebase&&fc&&fc.apiKey&&fc.projectId&&!/PEGA/.test(fc.apiKey));
