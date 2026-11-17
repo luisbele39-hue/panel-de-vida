@@ -1,10 +1,10 @@
-// Configuración web de la app "Panel de Vida" en el proyecto de Firebase.
+// Configuración web de la app "Panel de Vida" en el proyecto de Firebase JarvisHUD.
 // Estos valores son públicos por diseño: lo que protege tus datos son las reglas de Firestore.
 window.FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDJ8L8H2GnvY0ZXjrp06jwPxji0_e4KGp4",
-  authDomain: "financebro-4ac7b.firebaseapp.com",
-  projectId: "financebro-4ac7b",
-  storageBucket: "financebro-4ac7b.firebasestorage.app",
-  messagingSenderId: "481255418068",
-  appId: "1:481255418068:web:98f5f289028d81e2483341"
+  apiKey: "AIzaSyAIk-L5tSJWCBd_Q6dVQul1w2AMmyF8yL4",
+  authDomain: "jarvishud-93495.firebaseapp.com",
+  projectId: "jarvishud-93495",
+  storageBucket: "jarvishud-93495.firebasestorage.app",
+  messagingSenderId: "913251447263",
+  appId: "1:913251447263:web:a9cc6e7ef35fbe6512146a"
 };
