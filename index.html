@@ -1030,7 +1030,8 @@ function renderSettings(){
       +'<label class="srow"><span>Tu nombre</span><input type="text" id="setName" value="'+esc(C().name)+'" maxlength="24" placeholder="¿Cómo te llamas?"></label>'
       +'<label class="srow"><span>Moneda</span><select id="setCur">'+['$','€','S/','Bs','R$','£','Q','₡'].map(c=>'<option'+(C().cur===c?' selected':'')+'>'+c+'</option>').join('')+'</select></label>'
       +'<label class="srow"><span>Meta diaria de calorías</span><input type="text" inputmode="numeric" id="setKcal" value="'+C().kcal+'"></label></section>'
-    +'<section><h3>Experiencia</h3>'+sw('motion','Animaciones','Entradas, confeti y efectos al marcar')+sw('sound','Sonidos','Aviso al subir de nivel y al terminar el enfoque')+'</section>'
+    +'<section><h3>Experiencia</h3>'+sw('motion','Animaciones','Entradas, confeti y efectos al marcar')+sw('sound','Sonidos','Aviso al subir de nivel y al terminar el enfoque')
+      +(document.fullscreenEnabled?'<div class="srow"><div><b>Pantalla completa</b><div class="hint">También con la tecla F11. Sal con Esc.</div></div><button class="btn" data-act="fs">'+(document.fullscreenElement?'Salir':'Activar')+'</button></div>':'')+'</section>'
     +'<section><h3>Tus datos</h3><div class="note">'+(mode==='cloud'?'Todo se guarda automáticamente en tu cuenta. Lo verás igual en el PC y en el móvil al entrar con tu correo, y nadie más puede leerlo.':mode==='local'?'Ahora mismo se guarda solo en este navegador porque falta conectar Firebase (mira el archivo LEEME).':'Conectando con tus datos…')+'</div>'
       +(authUser?'<div class="srow"><div><b>Sesión iniciada</b><div class="hint">'+esc(authUser.email||'')+'</div></div><button class="btn" data-act="logout">Cerrar sesión</button></div>':'')
       +'<div class="srow"><div><b>Reiniciar XP y logros</b><div class="hint">Vuelves al nivel 1. Tus hábitos, tareas y finanzas no se tocan.</div></div><button class="btn danger" data-act="reset">'+(confirmKey==='reset'?'¿Seguro?':'Reiniciar')+'</button></div></section>'
@@ -1077,6 +1078,7 @@ function setTab(){
   const a=$('#tabs a.on'); if(a&&a.scrollIntoView) a.scrollIntoView({block:'nearest',inline:'center'});
 }
 addEventListener('hashchange',setTab);
+document.addEventListener('fullscreenchange',()=>{ if(setOpen) renderSettings(); });
 addEventListener('pointerdown',e=>{lastPt={x:e.clientX,y:e.clientY};},true);
 addEventListener('resize',()=>{ if(tab==='habitos') renderChart(); });
 function needConfirm(k){ if(confirmKey===k){confirmKey=null;return false;} confirmKey=k; render(); return true; }
@@ -1089,6 +1091,7 @@ document.addEventListener('click',e=>{
   else if(a==='aureg'){ authDo('reg'); }
   else if(a==='aureset'){ authDo('reset'); }
   else if(a==='augoogle'){ authDo('google'); }
+  else if(a==='fs'){ const p=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); if(p&&p.catch) p.catch(()=>{}); }
   else if(a==='logout'){ firebase.auth().signOut().then(()=>location.reload()); }
   else if(a==='openset'){ setOpen=true; renderSettings(); }
   else if(a==='closeset'){ if(b.classList.contains('setbg')&&e.target!==b) return; setOpen=false; renderSettings(); $('#gearBtn').focus(); }
